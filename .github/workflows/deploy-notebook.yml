@@ -88,6 +88,7 @@ jobs:
         DEST_HOST=${{ secrets.DATABRICKS_DEST_HOST }}
         DEST_TOKEN=${{ secrets.DATABRICKS_DEST_TOKEN }}
         DEST_BASE="/py/scripts/main"
+        CLUSTER_KEY="job_cluster"
         
         echo "Creando workflow: WF_ADB"
         
@@ -104,7 +105,7 @@ jobs:
                 "notebook_path": "/py/scripts/main/clase_cicd",
                 "source": "WORKSPACE"
               },
-              "job_cluster_key": "job_cluster",
+              "job_cluster_key": "$CLUSTER_KEY",
               "timeout_seconds": 3600,
               "max_retries": 2
             },
@@ -115,7 +116,7 @@ jobs:
                 "notebook_path": "/py/scripts/main/resultado",
                 "source": "WORKSPACE"
               },
-              "job_cluster_key": "job_cluster",
+              "job_cluster_key": "$CLUSTER_KEY",
               "timeout_seconds": 3600,
               "max_retries": 2,
               "depends_on": [
@@ -127,7 +128,7 @@ jobs:
           ],
           "job_clusters": [
             {
-              "job_cluster_key": "job_cluster",
+              "job_cluster_key": "$CLUSTER_KEY",
               "new_cluster": {
                 "spark_version": "13.3.x-scala2.12",
                 "node_type_id": "Standard_D4s_v3",
